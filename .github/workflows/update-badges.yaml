@@ -1,0 +1,62 @@
+name: Update Badges
+run-name: Update Badges for ${{ inputs.target-repo }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      target-repo:
+        description: 'Target repository name'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  update-badges:
+    name: '🏷️ Update Badges on ${{ inputs.target-repo }}'
+    runs-on: ${{ vars.RUNNER_S_ARM }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ github.token }}
+
+      - name: Commit to repository
+        id: commit-to-repository
+        shell: bash
+        run: |
+          git config user.name "Github Action of ${{ github.event.repository.name }} repo"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          repo_dir="${{ inputs.target-repo }}/badges"
+          mkdirs -p $repo_dir
+          file_path="$repo_dir/test.txt"
+          echo "Creating file" > $file_path
+
+          git add .
+
+          if ! git diff --quiet HEAD; then
+            git commit -m "${{ inputs.target-repo }}: Update badges"
+
+            # Get current branch name
+            BRANCH_NAME=$(git symbolic-ref --short HEAD)
+
+            # Try to push with set-upstream first; if it fails, try pull-rebase-push
+            if git push --set-upstream origin ${BRANCH_NAME} 2>/dev/null; then
+              echo "Branch pushed successfully with --set-upstream"
+            else
+              echo "Branch may already exist on remote, trying pull-rebase-push"
+              # https://stackoverflow.com/q/42743809/2971192
+              for i in {1..5}; do 
+                git pull --rebase origin ${BRANCH_NAME} && git push && break || sleep 5
+              done
+            fi
+
+            revision=$(git rev-parse HEAD)
+            echo "REVISION: ${revision}"
+            echo "revision=${revision}" >> $GITHUB_OUTPUT        
+          else
+            echo "No changes to commit"
+          fi
