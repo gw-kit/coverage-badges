@@ -101,8 +101,8 @@ jobs:
             }).reduce(
               (acc, badge) => { 
                 return acc
-                  .addCodeBlock(badge).addEOL()
                   .addRaw(badge).addEOL()
+                  .addCodeBlock(badge).addEOL()
                   .addRaw('---').addEOL(); 
               }, 
               core.summary.addHeading('Badges', 3).addEOL()
