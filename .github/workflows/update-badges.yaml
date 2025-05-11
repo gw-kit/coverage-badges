@@ -7,8 +7,12 @@ on:
       target-repo:
         description: 'Target repository name'
         required: true
+        default: 'delta-coverage-plugin'
       artifacts-source-run-id:
         description: 'Run ID of the workflow that generated the artifacts'
+        required: false
+      badges-artifact-name:
+        description: 'Name of the badges artifact'
         required: false
       badges-artifact-id:
         description: 'Artifact ID of the badges'
@@ -40,6 +44,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: artifacts-tmp
+          name: ${{ inputs.badges-artifact-name }}
           run-id: ${{ inputs.artifacts-source-run-id }}
           artifact-ids: ${{ inputs.badges-artifact-id }}
           repository: '${{ github.repository_owner }}/${{ inputs.target-repo }}'
