@@ -31,7 +31,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           repo_dir="${{ inputs.target-repo }}/badges"
-          mkdirs -p $repo_dir
+          mkdir -p $repo_dir
           file_path="$repo_dir/test.txt"
           echo "Creating file" > $file_path
 
