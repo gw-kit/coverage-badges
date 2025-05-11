@@ -48,6 +48,7 @@ jobs:
           run-id: ${{ inputs.artifacts-source-run-id }}
           artifact-ids: ${{ inputs.badges-artifact-id }}
           repository: '${{ github.repository_owner }}/${{ inputs.target-repo }}'
+          github-token: ${{ github.token }}
 
       - name: Debug
         run: |
