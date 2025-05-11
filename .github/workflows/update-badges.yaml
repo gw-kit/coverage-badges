@@ -20,7 +20,7 @@ permissions:
 
 env:
   FULL_TARGET_REPO: '${{ github.repository_owner }}/${{ inputs.target-repo }}'
-  BADGES_DIR: '${{ github.workspace }}/${{ inputs.target-repo }}/badges'
+  REL_BADGES_DIR: '${{ inputs.target-repo }}/badges'
   TMP_DIR: '${{ github.workspace }}/artifacts-tmp'
 
 jobs:
@@ -46,12 +46,10 @@ jobs:
 
       - name: Move Badges to ${{ inputs.target-repo }} Badges Directory
         run: |
-          mkdir -p ${{ env.BADGES_DIR }}
-          mv ${{ env.TMP_DIR }}/* ${{ env.BADGES_DIR }}
-          ls -la ${{ env.BADGES_DIR }}
+          mkdir -p ${{ env.REL_BADGES_DIR }}
+          mv ${{ env.TMP_DIR }}/* ${{ env.REL_BADGES_DIR }}
 
       - name: Commit to repository
-        if: false
         id: commit-to-repository
         shell: bash
         run: |
@@ -88,3 +86,23 @@ jobs:
           else
             echo "No changes to commit"
           fi
+
+      - name: Render Badges in Summary
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            const baseBadgeUrl = 'https://raw.githubusercontent.com/${{ github.repository }}/${{ env.REL_BADGES_DIR }}';
+            const badgesDir = '${{ env.REL_BADGES_DIR }}';
+            const files = fs.readdirSync(badgesDir);
+
+            files.map(file => {
+              const completeBadgeUrl = `${baseBadgeUrl}/${file}`;
+              const badgeMarkdown = `![${file}](${completeBadgeUrl})`;
+              return badgeMarkdown;
+            }).reduce(
+              (acc, badge) => { return acc.addRaw(badge).addEOL(); }, 
+              core.summary.addHeading('Badges', 3).addEOL()
+            ).write();
+            
