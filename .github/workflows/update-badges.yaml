@@ -14,7 +14,7 @@ permissions:
 jobs:
   update-badges:
     name: '🏷️ Update Badges on ${{ inputs.target-repo }}'
-    runs-on: ${{ vars.RUNNER_S_ARM }}
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
