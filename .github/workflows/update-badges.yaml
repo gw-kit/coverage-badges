@@ -9,10 +9,10 @@ on:
         required: true
       artifacts-source-run-id:
         description: 'Run ID of the workflow that generated the artifacts'
-        required: true
+        required: false
       badges-artifact-id:
         description: 'Artifact ID of the badges'
-        required: true
+        required: false
 
 
 permissions:
