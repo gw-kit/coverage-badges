@@ -1,24 +1,24 @@
-<svg width="77.9" height="20" viewBox="0 0 779 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="test: 82.3%">
-  <title>test: 82.3%</title>
-  <linearGradient id="LTZtl" x2="0" y2="100%">
+<svg width="84.9" height="20" viewBox="0 0 849 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="test: 86.84%">
+  <title>test: 86.84%</title>
+  <linearGradient id="kPBnG" x2="0" y2="100%">
     <stop offset="0" stop-opacity=".1" stop-color="#EEE"/>
     <stop offset="1" stop-opacity=".1"/>
   </linearGradient>
-  <mask id="QsrIx"><rect width="779" height="200" rx="30" fill="#FFF"/></mask>
-  <g mask="url(#QsrIx)">
+  <mask id="GdgLU"><rect width="849" height="200" rx="30" fill="#FFF"/></mask>
+  <g mask="url(#GdgLU)">
     <rect width="309" height="200" fill="#555"/>
-    <rect width="470" height="200" fill="url(#x)" x="309"/>
-    <rect width="779" height="200" fill="url(#LTZtl)"/>
+    <rect width="540" height="200" fill="url(#x)" x="309"/>
+    <rect width="849" height="200" fill="url(#kPBnG)"/>
   </g>
   <g aria-hidden="true" fill="#fff" text-anchor="start" font-family="Verdana,DejaVu Sans,sans-serif" font-size="110">
     <text x="60" y="148" textLength="209" fill="#000" opacity="0.25">test</text>
     <text x="50" y="138" textLength="209">test</text>
-    <text x="364" y="148" textLength="370" fill="#000" opacity="0.25">82.3%</text>
-    <text x="354" y="138" textLength="370">82.3%</text>
+    <text x="364" y="148" textLength="440" fill="#000" opacity="0.25">86.84%</text>
+    <text x="354" y="138" textLength="440">86.84%</text>
   </g>
   
   <linearGradient id="x" x1="0%" y1="0%" x2="100%" y2="0%">
-    <stop offset="0%" style="stop-color:#2200ff" />
-    <stop offset="100%" style="stop-color:#11cbfa" />
+    <stop offset="0%" style="stop-color:#16019f" />
+    <stop offset="100%" style="stop-color:#117efa" />
   </linearGradient>
 </svg>
