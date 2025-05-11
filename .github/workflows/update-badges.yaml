@@ -11,16 +11,17 @@ on:
       artifacts-source-run-id:
         description: 'Run ID of the workflow that generated the artifacts'
         required: false
-      badges-artifact-name:
-        description: 'Name of the badges artifact'
-        required: false
       badges-artifact-id:
         description: 'Artifact ID of the badges'
         required: false
 
-
 permissions:
   contents: write
+
+env:
+  FULL_TARGET_REPO: '${{ github.repository_owner }}/${{ inputs.target-repo }}'
+  BADGES_DIR: '${{ github.workspace }}/${{ inputs.target-repo }}/badges'
+  TMP_DIR: '${{ github.workspace }}/artifacts-tmp'
 
 jobs:
   update-badges:
@@ -34,25 +35,20 @@ jobs:
           fetch-depth: 0
           token: ${{ github.token }}
 
-      - name: Badges Dir
-        id: badges-dir
-        run: |
-          dir='${{ inputs.target-repo }}/badges'
-          echo "value=${dir}" >> $GITHUB_OUTPUT
-
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
           path: artifacts-tmp
-          name: ${{ inputs.badges-artifact-name }}
           run-id: ${{ inputs.artifacts-source-run-id }}
           artifact-ids: ${{ inputs.badges-artifact-id }}
-          repository: '${{ github.repository_owner }}/${{ inputs.target-repo }}'
+          repository: ${{ env.FULL_TARGET_REPO }}
           github-token: ${{ github.token }}
 
-      - name: Debug
+      - name: Move Badges to ${{ inputs.target-repo }} Badges Directory
         run: |
-          ls -la artifacts-tmp/
+          mkdir -p ${{ env.BADGES_DIR }}
+          mv ${{ env.TMP_DIR }}/* ${{ env.BADGES_DIR }}
+          ls -la ${{ env.BADGES_DIR }}
 
       - name: Commit to repository
         if: false
