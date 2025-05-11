@@ -42,6 +42,7 @@ jobs:
           path: artifacts-tmp
           run-id: ${{ inputs.artifacts-source-run-id }}
           artifact-ids: ${{ inputs.badges-artifact-id }}
+          repository: '${{ github.repository_owner }}/${{ inputs.target-repo }}'
 
       - name: Debug
         run: |
