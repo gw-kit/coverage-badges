@@ -99,7 +99,12 @@ jobs:
               const badgeMarkdown = `![${file}](${completeBadgeUrl})`;
               return badgeMarkdown;
             }).reduce(
-              (acc, badge) => { return acc.addRaw(badge).addEOL(); }, 
+              (acc, badge) => { 
+                return acc
+                  .addCodeBlock(badge).addEOL(); 
+                  .addRaw(badge).addEOL(); 
+                  .addRaw('---').addEOL(); 
+              }, 
               core.summary.addHeading('Badges', 3).addEOL()
             ).write();
             
