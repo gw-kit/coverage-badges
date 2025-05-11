@@ -7,6 +7,13 @@ on:
       target-repo:
         description: 'Target repository name'
         required: true
+      artifacts-source-run-id:
+        description: 'Run ID of the workflow that generated the artifacts'
+        required: true
+      badges-artifact-id:
+        description: 'Artifact ID of the badges'
+        required: true
+
 
 permissions:
   contents: write
@@ -23,14 +30,32 @@ jobs:
           fetch-depth: 0
           token: ${{ github.token }}
 
+      - name: Badges Dir
+        id: badges-dir
+        run: |
+          dir='${{ inputs.target-repo }}/badges'
+          echo "value=${dir}" >> $GITHUB_OUTPUT
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts-tmp
+          run-id: ${{ inputs.artifacts-source-run-id }}
+          artifact-ids: ${{ inputs.badges-artifact-id }}
+
+      - name: Debug
+        run: |
+          ls -la artifacts-tmp/
+
       - name: Commit to repository
+        if: false
         id: commit-to-repository
         shell: bash
         run: |
           git config user.name "Github Action of ${{ github.event.repository.name }} repo"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          repo_dir="${{ inputs.target-repo }}/badges"
+          repo_dir="${{ steps.badges-dir.outputs.value }}"
           mkdir -p $repo_dir
           file_path="$repo_dir/test.txt"
           echo "Creating file" > $file_path
