@@ -47,7 +47,7 @@ jobs:
       - name: Move Badges to ${{ inputs.target-repo }} Badges Directory
         run: |
           mkdir -p ${{ env.REL_BADGES_DIR }}
-          mv ${{ env.TMP_DIR }}/* ${{ env.REL_BADGES_DIR }}
+          find ${{ env.TMP_DIR }} -type f -exec mv {} ${{ env.REL_BADGES_DIR }} \;
 
       - name: Commit to repository
         id: commit-to-repository
@@ -86,10 +86,12 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const fs = require('fs');
-
-            const baseBadgeUrl = 'https://raw.githubusercontent.com/${{ github.repository }}/${{ env.REL_BADGES_DIR }}';
+            const thisRepo = '${{ github.repository }}';
+            const thisBranch = '${{ github.ref }}';
             const badgesDir = '${{ env.REL_BADGES_DIR }}';
+            const baseBadgeUrl = `https://raw.githubusercontent.com/${thisRepo}/${thisBranch}/${badgesDir}`;
+            
+            const fs = require('fs');
             const files = fs.readdirSync(badgesDir);
 
             files.map(file => {
