@@ -10,10 +10,10 @@ on:
         default: 'delta-coverage-plugin'
       artifacts-source-run-id:
         description: 'Run ID of the workflow that generated the artifacts'
-        required: false
+        required: true
       badges-artifact-id:
         description: 'Artifact ID of the badges'
-        required: false
+        required: true
 
 permissions:
   contents: write
