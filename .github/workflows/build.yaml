@@ -1,0 +1,26 @@
+name: Test Badges
+
+on:
+  push:
+
+jobs:
+  update-badges:
+    name: '🏷️ Update Badges on ${{ inputs.target-repo }}'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ github.token }}
+
+      - name: Append svg to Summary
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const content = fs.readFileSync('delta-coverage-plugin/badges/aggregated.svg');
+            core.summary
+              .addRaw(content.toString())
+              .write();
