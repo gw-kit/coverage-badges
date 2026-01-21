@@ -1,20 +1,20 @@
-<svg width="84.9" height="20" viewBox="0 0 849 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="test: 88.59%">
-  <title>test: 88.59%</title>
-  <linearGradient id="SfPAf" x2="0" y2="100%">
+<svg width="77.9" height="20" viewBox="0 0 779 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="test: 89.5%">
+  <title>test: 89.5%</title>
+  <linearGradient id="CSWTy" x2="0" y2="100%">
     <stop offset="0" stop-opacity=".1" stop-color="#EEE"/>
     <stop offset="1" stop-opacity=".1"/>
   </linearGradient>
-  <mask id="BveMK"><rect width="849" height="200" rx="30" fill="#FFF"/></mask>
-  <g mask="url(#BveMK)">
+  <mask id="PyxMv"><rect width="779" height="200" rx="30" fill="#FFF"/></mask>
+  <g mask="url(#PyxMv)">
     <rect width="309" height="200" fill="#555"/>
-    <rect width="540" height="200" fill="url(#x)" x="309"/>
-    <rect width="849" height="200" fill="url(#SfPAf)"/>
+    <rect width="470" height="200" fill="url(#x)" x="309"/>
+    <rect width="779" height="200" fill="url(#CSWTy)"/>
   </g>
   <g aria-hidden="true" fill="#fff" text-anchor="start" font-family="Verdana,DejaVu Sans,sans-serif" font-size="110">
     <text x="60" y="148" textLength="209" fill="#000" opacity="0.25">test</text>
     <text x="50" y="138" textLength="209">test</text>
-    <text x="364" y="148" textLength="440" fill="#000" opacity="0.25">88.59%</text>
-    <text x="354" y="138" textLength="440">88.59%</text>
+    <text x="364" y="148" textLength="370" fill="#000" opacity="0.25">89.5%</text>
+    <text x="354" y="138" textLength="370">89.5%</text>
   </g>
   
   <linearGradient id="x" x1="0%" y1="0%" x2="100%" y2="0%">
